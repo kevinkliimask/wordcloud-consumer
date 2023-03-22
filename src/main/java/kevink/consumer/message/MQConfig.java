@@ -1,4 +1,4 @@
-package kevink.consumer;
+package kevink.consumer.message;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
