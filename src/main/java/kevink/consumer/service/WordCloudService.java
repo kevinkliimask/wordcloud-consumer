@@ -23,17 +23,16 @@ public class WordCloudService {
                 .lines().collect(Collectors.toCollection(HashSet::new));
     }
 
-    public void handleMessage(UploadMessage message) {
+    public HashMap<String, Integer> handleMessage(UploadMessage message) {
         String text = new String(Base64.getDecoder().decode(message.getMessageData().getBytes()));
-        HashMap<String, Integer> wordCounts = findWordCounts(text);
-        System.out.println(wordCounts);
+        return findWordCounts(text);
     }
 
     private HashMap<String, Integer> findWordCounts(String text) {
         String[] wordsArray = text.trim().split("\\s+");
         HashMap<String, Integer> wordCounts = new HashMap<>();
         for (String word : wordsArray) {
-            if (!excludedWords.contains(word))
+            if (!excludedWords.contains(word.toLowerCase()))
                 wordCounts.put(word, wordCounts.getOrDefault(word, 0) + 1);
         }
 

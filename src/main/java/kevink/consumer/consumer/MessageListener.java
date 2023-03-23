@@ -6,6 +6,9 @@ import kevink.consumer.service.WordCloudService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+
+
 @Component
 public class MessageListener {
 
@@ -16,8 +19,8 @@ public class MessageListener {
     }
 
     @RabbitListener(queues = MQConfig.QUEUE)
-    public void listener(UploadMessage message) {
-        wordCloudService.handleMessage(message);
+    public HashMap<String, Integer> listener(UploadMessage message) {
+        return wordCloudService.handleMessage(message);
     }
 
 }
