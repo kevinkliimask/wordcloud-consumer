@@ -30,7 +30,7 @@ public class WordCloudService {
     public HashMap<String, Integer> handleMessage(UploadMessage message) {
         String text = new String(Base64.getDecoder().decode(message.getMessageData().getBytes()));
         HashMap<String, Integer> wordCounts = findWordCounts(text);
-        wordCountsRepository.save(new WordCountsEntity(message.getMessageId(), wordCounts));
+        wordCountsRepository.save(new WordCountsEntity(UUID.fromString(message.getMessageId()), wordCounts));
         return wordCounts;
     }
 

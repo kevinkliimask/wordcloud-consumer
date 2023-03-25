@@ -2,29 +2,38 @@ package kevink.consumer.entity;
 
 import jakarta.persistence.*;
 import kevink.consumer.util.HashMapConverter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
-@Entity
+@Data
 @NoArgsConstructor
+@Entity
+@Table(name = "word_counts")
 public class WordCountsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
     private long id;
 
-    private String messageId;
+    @Column
+    private UUID messageId;
 
     @Convert(converter = HashMapConverter.class)
+    @Lob
+    @Column(name="word_counts")
     private Map<String, Integer> wordCounts;
 
     @DateTimeFormat
+    @Column
     private Date createdAt;
 
-    public WordCountsEntity(String messageId, Map<String, Integer> wordCounts) {
+    public WordCountsEntity(UUID messageId, Map<String, Integer> wordCounts) {
         this.messageId = messageId;
         this.wordCounts = wordCounts;
     }

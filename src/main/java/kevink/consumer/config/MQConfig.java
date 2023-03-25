@@ -1,4 +1,4 @@
-package kevink.consumer.message;
+package kevink.consumer.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;

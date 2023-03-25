@@ -1,6 +1,6 @@
-package kevink.consumer.consumer;
+package kevink.consumer.listener;
 
-import kevink.consumer.message.MQConfig;
+import kevink.consumer.config.MQConfig;
 import kevink.consumer.message.ReplyMessage;
 import kevink.consumer.message.UploadMessage;
 import kevink.consumer.service.WordCloudService;
