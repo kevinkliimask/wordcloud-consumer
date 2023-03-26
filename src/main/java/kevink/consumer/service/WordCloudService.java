@@ -1,6 +1,7 @@
 package kevink.consumer.service;
 
 import kevink.consumer.entity.WordCountsEntity;
+import kevink.consumer.message.GetWordCountsMessage;
 import kevink.consumer.message.UploadMessage;
 import kevink.consumer.repository.WordCountsRepository;
 import org.springframework.core.io.ClassPathResource;
@@ -27,11 +28,16 @@ public class WordCloudService {
         this.wordCountsRepository = wordCountsRepository;
     }
 
-    public HashMap<String, Integer> handleMessage(UploadMessage message) {
+    public HashMap<String, Integer> handleGetResult(GetWordCountsMessage message) {
+        return new HashMap<>(wordCountsRepository
+                .findByMessageId(UUID.fromString(message.getWordCountsMessageId())).getWordCounts());
+    }
+
+    public String handleFileUpload(UploadMessage message) {
         String text = new String(Base64.getDecoder().decode(message.getMessageData().getBytes()));
         HashMap<String, Integer> wordCounts = findWordCounts(text);
         wordCountsRepository.save(new WordCountsEntity(UUID.fromString(message.getMessageId()), wordCounts));
-        return wordCounts;
+        return message.getMessageId();
     }
 
     private HashMap<String, Integer> findWordCounts(String text) {

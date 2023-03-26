@@ -9,13 +9,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MQConfig {
 
-    public static final String QUEUE = "message_queue";
+    public static final String POST_QUEUE = "post_message_queue";
+    public static final String GET_QUEUE = "get_message_queue";
     public static final String EXCHANGE = "message_exchange";
-    public static final String ROUTING_KEY = "message_routingKey";
+    public static final String POST_ROUTING_KEY = "post_message_routing_key";
+    public static final String GET_ROUTING_KEY = "get_message_routing_key";
+
 
     @Bean
-    public Queue queue() {
-        return new Queue(QUEUE);
+    public Queue postQueue() {
+        return new Queue(POST_QUEUE);
+    }
+
+    @Bean
+    public Queue getQueue() {
+        return new Queue(GET_QUEUE);
     }
 
     @Bean
@@ -24,8 +32,13 @@ public class MQConfig {
     }
 
     @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
+    public Binding postBinding(Queue postQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(postQueue).to(exchange).with(POST_ROUTING_KEY);
+    }
+
+    @Bean
+    public Binding getBinding(Queue getQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(getQueue).to(exchange).with(GET_ROUTING_KEY);
     }
 
     @Bean

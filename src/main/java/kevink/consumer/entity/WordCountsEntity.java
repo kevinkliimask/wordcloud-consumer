@@ -26,7 +26,7 @@ public class WordCountsEntity {
 
     @Convert(converter = HashMapConverter.class)
     @Lob
-    @Column(name="word_counts")
+    @Column(name = "word_counts")
     private Map<String, Integer> wordCounts;
 
     @DateTimeFormat

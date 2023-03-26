@@ -23,6 +23,7 @@ services:
     build: .
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
+      - SPRING_RABBITMQ_HOST=rabbitmq
     ports:
       - "8081:8081"
     volumes:

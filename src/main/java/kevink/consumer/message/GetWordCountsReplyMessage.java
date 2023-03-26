@@ -11,7 +11,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ReplyMessage {
+public class GetWordCountsReplyMessage {
 
     private Map<String, Integer> wordCounts;
 

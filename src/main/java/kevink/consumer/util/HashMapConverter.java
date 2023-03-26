@@ -32,7 +32,8 @@ public class HashMapConverter implements AttributeConverter<Map<String, Integer>
         Map<String, Integer> wordCounts = null;
         try {
             wordCounts = objectMapper.readValue(wordCountsJSON,
-                    new TypeReference<HashMap<String, Integer>>() {});
+                    new TypeReference<HashMap<String, Integer>>() {
+                    });
         } catch (IOException e) {
             e.printStackTrace();
         }
