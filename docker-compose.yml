@@ -1,5 +1,13 @@
 version: '3.5'
 services:
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - network
   postgres:
     container_name: postgres
     image: postgres
@@ -22,8 +30,9 @@ services:
     networks:
       - network
     depends_on:
+      - rabbitmq
       - postgres
 networks:
   network:
     name: backend
-    external: true
+    driver: bridge
