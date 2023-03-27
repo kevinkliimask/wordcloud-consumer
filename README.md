@@ -10,10 +10,19 @@ Run `./gradlew bootRun` for a dev server. Server is located at `http://localhost
 
 Run `docker compose up` for a Docker container that runs the application. Server is located at `http://localhost:8081/`.
 
+# How the application works
+
+Producer app has 2 endpoints - GET mapping and POST mapping. When you upload a file, the file gets sent to producer application,
+which will forward the contents of the file via a message to consumer application. Consumer application will count the words
+and will persist the data. After uploading the file, you are redirected to a page with a unique identifer for the database entry.
+The page will then send a GET request with the ID to producer app, which will forward it to consumer app and it will in
+turn return the counts of the words.
+
 ## TODO list
 
-- Set up RabbitMQ to have better consistency. There is a bug where sometimes the Dockerized application can't connect 
-with RabbitMQ, usually restarting the container or sending a few requests will fix this. Need to troubleshoot this.
+- Set up RabbitMQ to have better consistency. There is a bug where sometimes the consumer application can't retrieve messages, 
+usually restarting the application and purging the queue from RabbitMQ management or sending a new message will fix this. 
+Need to troubleshoot this.
 - Fix Docker configurations. Ideally running `docker compose -f .\wordcloud-consumer\docker-compose.yml -f .\wordcloud-producer\docker-compose.yml up -d` 
 would start both the producer and consumer applications, but for some reason consumer application will fail to get connection to RabbitMQ.
 Could be due to a race condition. Have to troubleshoot this.
